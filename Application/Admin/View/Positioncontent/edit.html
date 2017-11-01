@@ -1,0 +1,129 @@
+<include file="Index/header" />
+<body>
+	<div id="wrapper">
+
+		<include file="Index/nav"/>
+		<div id="page-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Page Heading -->
+				<div class="row">
+					<div class="col-lg-12">
+
+						<ol class="breadcrumb">
+							<li>
+								<i class="fa fa-dashboard"></i>  <a href="/admin.php?c=positioncontent">推荐位内容管理</a>
+							</li>
+							<li class="active">
+								<i class="fa fa-edit"></i> 添加推荐位内容
+							</li>
+						</ol>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-6">
+
+						<form class="form-horizontal" id="mycms-form">
+							<div class="form-group">
+								<label for="inputname" class="col-sm-2 control-label">标题:</label>
+								<div class="col-sm-5">
+									<input type="text" name="title" class="form-control" id="inputname" placeholder="请填写标题" value="{$vo.title}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputname" class="col-sm-2 control-label">选择推荐位:</label>
+								<div class="col-sm-5">
+									<select class="form-control" name="position_id">
+										<option value="">请选择...</option>
+										<foreach name="positions" item="position">
+
+											<option value="{$position.id}" <if condition="$position.id EQ $vo['position_id']">selected</if>>{$position.name}</option>
+										</foreach>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputname" class="col-sm-2 control-label">缩图:</label>
+								<!-- 图片上传 -->
+								<form action="" id="submitForm">
+									<div class="fileinput-button">
+										<div class="thumbnail" id="thumbnail">
+											<div class="cover">
+												<img src="__PUBLIC__/css/img/add_img.png" />
+											</div>
+										</div>
+										<!-- The file input field used as target for the file upload widget -->
+										<input id="fileupload" type="file" name="upload_img">
+										<div id="img_url"></div>
+
+										<!-- The container for the uploaded files -->
+										<div id="files" class="files"></div>
+									</div>
+
+									<div class="form-group">
+										<label for="inputPassword3" class="col-sm-2 control-label">URL:</label>
+										<div class="col-sm-5">
+											<input type="text" class="form-control" name="url" id="inputPassword3" placeholder="请填写URL地址" value="{$vo.url}">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputname" class="col-sm-2 control-label">文章ID:</label>
+										<div class="col-sm-5">
+											<input type="text" name="news_id" class="form-control" id="inputname" placeholder="如果和文章无关联的可以不添加文章id" value="{$vo.id}">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputPassword3" class="col-sm-2 control-label">状态:</label>
+										<div class="col-sm-5">
+											<input type="radio" name="status" id="optionsRadiosInline1" value="1" <if condition="$vo.status EQ 1">checked</if> > 开启
+											<input type="radio" name="status" id="optionsRadiosInline2" value="0" <if condition="$vo.status EQ 0">checked</if> > 关闭
+										</div>
+
+									</div>
+									<input type="hidden" name="id" value="{$vo.id}">
+									<div class="form-group">
+										<div class="col-sm-offset-2 col-sm-10">
+											<button type="button" class="btn btn-default" id="mycms-button-submit">提交修改</button>
+										</div>
+									</div>
+								</form>
+
+
+							</div>
+
+						</div>
+						<!-- /.row -->
+
+					</div>
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- /#page-wrapper -->
+			</div>
+			<script>
+				var SCOPE = {
+					'save_url' : '/admin.php?c=positioncontent&a=add',
+					'jump_url' : '/admin.php?c=positioncontent&a=index',
+					'ajax_upload_image_url' : '/admin.php?c=image&a=thumbPicUpload',
+					'upload_base_url' : '__PUBLIC__/uploads/',
+				};
+			</script>
+
+			<!-- /#wrapper -->
+			<script type="text/javascript" src="/Public/js/admin/form.js"></script>
+			<script src="/Public/js/admin/image.js"></script>
+
+			<!-- 显示缩图 -->
+			<script>
+				var thumb = "{$vo.thumb}";
+				if (thumb) {
+					$("#thumbnail").html('<div class="up-img"><img style="max-width: 500px;" src="{$vo.thumb}" /></div>');
+					$("#img_url").html('<input type="hidden" name="thumb" value="{$vo.thumb}" />');
+				}
+			</script>
+			
+			<include file="Index/footer" />

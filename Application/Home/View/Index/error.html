@@ -1,0 +1,22 @@
+<include file="Index/header" />
+	<section>
+		<div class="container" style="text-align:center;">
+			<h1 style="color:red">{$message}</h1>
+			<h3 id="location" >系统将在<span style="color:red">3</span>秒后自动跳转到<a href="/">首页</a></h3>
+		</div>
+	</section>
+</body>
+<script src="/Public/js/jquery.js"></script>
+<script>
+	var url = '/';	//首页地址
+	setInterval("countdown()",1000);	//每1s调用一次count()函数
+	var time = 3;
+	function countdown(){
+		if (time==0) {
+			location.href = url;
+		}
+		$("#location span").html(time);
+		time--;
+	}
+</script>
+</html>
